@@ -1,0 +1,48 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const pageTitle = "Blog";
+const allPosts = await getCollection('blog');
+const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+const allTidbits = await getCollection('tidbits');
+const sortedTidbits = allTidbits.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <div class="flex sm:flex-row gap-12 flex-col sm:gap-4">
+    <div class="flex-1 flex flex-col gap-8">
+      <h2 class="text-2xl text-accent flex flex-row gap-2 items-baseline">
+        Latest
+        <span class="text-sm text-gray-400 italic">off the press</span>
+      </h2>
+      <div class="flex flex-col gap-12">
+        {sortedPosts.map((post) => {
+          return (
+            <a href={`/${post.id}/`} class="group flex flex-col gap-1 hover:border-l-2 hover:border-secondary hover:pl-2 hover:ml-[calc(var(--spacing)*-2-2px)]">
+              <h2 class="text-2xl text-primary group-hover:text-secondary">{post.data.title}</h2>
+              <p class="text-sm text-gray-400">{post.data.pubDate.toLocaleDateString()}</p>
+              <p class="text-base font-serif">{post.data.description}</p>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+    <div class="flex flex-col gap-8">
+      <h2 class="text-2xl text-accent">
+        Tidbits
+        <span class="text-sm text-gray-400 italic">Small bits of info</span>
+      </h2>
+      <div class="flex flex-col gap-4">
+        {sortedTidbits.map((tidbit) => {
+          return (
+            <a href={`/tidbits/${tidbit.id}/`} class="group flex flex-col gap-1 hover:border-l-2 hover:border-secondary hover:pl-2 hover:ml-[calc(var(--spacing)*-2-2px)]">
+              <h2 class="text-primary group-hover:text-secondary">{tidbit.data.title}</h2>
+              <p class="text-sm font-serif">{tidbit.data.description}</p>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+</BaseLayout>

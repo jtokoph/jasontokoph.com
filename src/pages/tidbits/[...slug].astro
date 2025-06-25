@@ -1,0 +1,18 @@
+---
+import { getCollection, render } from "astro:content";
+import MarkdownPostLayout from "../../layouts/MarkdownPostLayout.astro";
+
+export async function getStaticPaths() {
+	const tidbits = await getCollection("tidbits");
+	return tidbits.map((tidbit) => ({
+		params: { slug: tidbit.id },
+		props: { tidbit },
+	}));
+}
+
+const { tidbit } = Astro.props;
+const { Content } = await render(tidbit);
+---
+<MarkdownPostLayout badge="Tidbit" frontmatter={tidbit.data}>
+	<Content />
+</MarkdownPostLayout>
