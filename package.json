@@ -1,24 +1,23 @@
 {
-  "name": "jasontokoph.com",
-  "type": "module",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
-  "dependencies": {
-    "@astrojs/cloudflare": "^12.6.0",
-    "@astrojs/rss": "^4.0.12",
-    "@iconify-json/fa6-brands": "^1.2.5",
-    "@iconify-json/mdi": "^1.2.3",
-    "@tailwindcss/vite": "^4.1.10",
-    "astro": "^5.10.1",
-    "astro-icon": "^1.1.5",
-    "tailwindcss": "^4.1.10"
-  },
-  "devDependencies": {
-    "daisyui": "^5.0.43"
-  }
+	"name": "jasontokoph.com",
+	"type": "module",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"astro": "astro"
+	},
+	"dependencies": {
+		"@astrojs/rss": "^4.0.12",
+		"@iconify-json/fa6-brands": "^1.2.5",
+		"@iconify-json/mdi": "^1.2.3",
+		"@tailwindcss/vite": "^4.1.10",
+		"astro": "^5.10.1",
+		"astro-icon": "^1.1.5",
+		"tailwindcss": "^4.1.10"
+	},
+	"devDependencies": {
+		"daisyui": "^5.0.43"
+	}
 }

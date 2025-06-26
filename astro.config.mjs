@@ -4,13 +4,10 @@ import { defineConfig } from "astro/config";
 
 import icon from "astro-icon";
 
-import cloudflare from "@astrojs/cloudflare";
-
 // https://astro.build/config
 export default defineConfig({
-  site: "https://www.jasontokoph.com",
-  trailingSlash: "always",
-  vite: { plugins: [tailwindcss()] },
-  integrations: [icon()],
-  adapter: cloudflare(),
+	site: "https://www.jasontokoph.com",
+	trailingSlash: "always",
+	vite: { plugins: [tailwindcss()] },
+	integrations: [icon()],
 });
