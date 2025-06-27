@@ -47,7 +47,7 @@
   ddefault: false;
   prefersdark: false;
   color-scheme: "light";
-  --color-base-100: oklch(100% 0 0);
+  --color-base-100: oklch(96% 0 0);
   --color-base-200: oklch(93% 0 0);
   --color-base-300: oklch(86% 0 0);
   --color-base-content: oklch(35.519% 0.032 262.988);
@@ -55,7 +55,7 @@
   --color-primary-content: oklch(96% 0.018 272.314);
   --color-secondary: oklch(65% 0.241 354.308);
   --color-secondary-content: oklch(94% 0.028 342.258);
-  --color-accent: oklch(77% 0.152 181.912);
+  --color-accent: oklch(67% 0.152 181.912);
   --color-accent-content: oklch(38% 0.063 188.416);
   --color-neutral: oklch(35.519% 0.032 262.988);
   --color-neutral-content: oklch(98.462% 0.001 247.838);
@@ -146,6 +146,31 @@ code .line::before {
   @apply mr-6 w-8 hidden sm:inline-block text-right;
 }
 
+.markdown {
+  @apply font-serif;
+
+  p, ul, ol {
+    @apply text-lg/8 pb-8;
+
+    /* inline code */
+    code {
+      @apply bg-primary/15 font-mono text-sm px-1.5 py-0.5 rounded-lg inline-block;
+    }
+  }
+
+  ol {
+    @apply list-decimal;
+  }
+
+  ul {
+    @apply list-disc;
+  }
+
+  li {
+    @apply mb-2;
+  }
+}
+
 .markdown a {
   @apply text-primary hover:text-secondary border-b border-primary hover:border-secondary;
 }
@@ -160,8 +185,6 @@ code .line::before {
 .markdown h4,
 .markdown h5,
 .markdown h6 {
-  @apply font-serif;
-
   a {
     @apply flex items-center border-b-0 relative text-base-content hover:text-base-content;
 
@@ -170,13 +193,4 @@ code .line::before {
       @apply text-gray-400 inline-block absolute -left-8;
     }
   }
-}
-
-/* inline code */
-.markdown p code {
-  @apply bg-primary/15 font-mono text-sm px-1.5 py-0.5 rounded-lg inline-block;
-}
-
-.markdown p {
-  @apply text-lg/8 pb-8 font-serif;
 }
