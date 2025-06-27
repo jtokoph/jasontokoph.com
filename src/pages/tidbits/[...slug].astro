@@ -13,6 +13,6 @@ export async function getStaticPaths() {
 const { tidbit } = Astro.props;
 const { Content } = await render(tidbit);
 ---
-<MarkdownPostLayout badge="Tidbit" frontmatter={tidbit.data}>
+<MarkdownPostLayout badge="Tidbit" frontmatter={tidbit.data} type="tidbit" id={tidbit.id}>
 	<Content />
 </MarkdownPostLayout>

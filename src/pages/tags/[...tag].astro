@@ -1,0 +1,68 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+
+export async function getStaticPaths() {
+	const posts = await getCollection("blog");
+  const tidbits = await getCollection("tidbits");
+  const allTags = new Set([...posts.flatMap((post) => post.data.tags), ...tidbits.flatMap((tidbit) => tidbit.data.tags)]);
+  const paths = Array.from(allTags).map((tag) => ({
+    params: { tag },
+    props: { tag },
+  }));
+
+  return paths;
+}
+
+
+const { tag } = Astro.params;
+const pageTitle = `Tagged with ${tag}`;
+const allPosts = await getCollection('blog');
+const sortedPosts = allPosts.filter((post) => post.data.tags.includes(tag)).filter((post) => !post.data.draft).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+const allTidbits = await getCollection('tidbits');
+const sortedTidbits = allTidbits.filter((tidbit) => tidbit.data.tags.includes(tag)).filter((tidbit) => !tidbit.data.draft).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <h1 class="text-4xl font-bold mb-8 text-secondary">Tagged with {tag}</h1>
+  <div class="flex sm:flex-row gap-12 flex-col sm:gap-4">
+    <div class="flex-1 flex flex-col gap-8">
+      <h2 class="text-2xl text-accent flex flex-row gap-2 items-baseline">
+        Blog
+        <span class="text-sm text-gray-400 italic">full length posts</span>
+      </h2>
+      <div class="flex flex-col gap-12">
+        {sortedPosts.map((post) => {
+          return (
+            <a href={`/${post.id}/`} class="group flex flex-col gap-1 hover:border-l-2 hover:border-secondary hover:pl-2 hover:ml-[calc(var(--spacing)*-2-2px)]">
+              <h2 class="text-2xl text-primary group-hover:text-secondary">{post.data.title}</h2>
+              <p class="text-sm text-gray-400">{post.data.pubDate.toLocaleDateString()}</p>
+              <p class="text-base font-serif">{post.data.description}</p>
+            </a>
+          );
+        })}
+
+        {sortedPosts.length === 0 ? <p class="text-sm text-gray-400">No {tag} posts (yet)</p> : null}
+      </div>
+    </div>
+    <div class="flex flex-col gap-8">
+      <h2 class="text-2xl text-accent">
+        Tidbits
+        <span class="text-sm text-gray-400 italic">short posts</span>
+      </h2>
+      <div class="flex flex-col gap-4">
+        {sortedTidbits.map((tidbit) => {
+          return (
+            <a href={`/tidbits/${tidbit.id}/`} class="group flex flex-col gap-1 hover:border-l-2 hover:border-secondary hover:pl-2 hover:ml-[calc(var(--spacing)*-2-2px)]">
+              <h2 class="text-primary group-hover:text-secondary">{tidbit.data.title}</h2>
+              <p class="text-sm font-serif">{tidbit.data.description}</p>
+            </a>
+          );
+        })}
+
+        {sortedTidbits.length === 0 ? <p class="text-sm text-gray-400">No {tag} tidbits (yet)</p> : null}
+      </div>
+    </div>
+  </div>
+</BaseLayout>

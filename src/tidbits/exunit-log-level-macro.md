@@ -5,14 +5,41 @@ description: 'Configure the log level per test'
 tags: ["elixir"]
 ---
 
-Sometimes when running tests you want to be able to test some of the log output. For good reason, `ExUnit` disables logging while running tests in order to reduce noise in the output.
+Recently I was working on some Elixir code paths that are expected to emit specific `info` logs for short term auditing purposes. It was nearly impossible to test because we configure the test environment's log level to `warning` and above. While this is a sane default to prevent noisy log output on errors, I needed a way to temporarily change the log level for a couple specific tests.
+
+# Example of the problem
+
+Here is a self contained fabricated example where we leverage `with_log/2` to capture the log stream along with the result. The assertion at line 9 will fail due to the info log being dropped.
+
+```elixir
+defmodule MyApp.SomeTest do
+  test "something with info logs" do
+    {result, log} =
+      with_log(fn ->
+        Logger.info("log msg")
+        2 + 2
+      end)
+    assert result == 4
+    assert log =~ "log msg" # [!code highlight]
+  end
+end
+```
+
+
+# Macros to the rescue
+
+This felt like the perfect use case for macros, so I defined a `log_level` macro to wrap test blocks that need alternative `Logger` level configuration.
+
+
 
 ```elixir
 defmodule MyApp.Case do
   # Add this macro to your base Case module
   defmacro log_level(level, description \\ nil, do: block) do
     description =
-      if is_binary(description), do: description, else: "with log level #{level}"
+      if is_binary(description),
+        do: description,
+        else: "with log level #{level}"
 
     quote do
       describe unquote(description) do
@@ -48,3 +75,7 @@ defmodule MyApp.SomeTest do
   end # [!code highlight]
 end
 ```
+
+# Limitation
+
+This solution does come with a limitation in that it wraps the tests in a `describe` block. `ExUnit` [does not allow nesting of](https://github.com/elixir-lang/elixir/blob/237263c446bbe15c00984aa926592179bfd9e772/lib/ex_unit/lib/ex_unit/case.ex#L536-L538) `describe` calls, so this macro will need to replace any existing `describe` you have. We slightly make up for this limitation by allowing you to override the message passed to `describe` as the second argument.
