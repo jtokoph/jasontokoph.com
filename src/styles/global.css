@@ -175,7 +175,7 @@ code .line::before {
   @apply text-primary hover:text-secondary border-b border-primary hover:border-secondary;
 }
 
-.markdown h1 {
+.markdown h2 {
   @apply text-2xl mb-8 text-base-content;
 }
 

@@ -11,6 +11,7 @@ import { defineConfig } from "astro/config";
 import icon from "astro-icon";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
+import remarkBehead from "remark-behead";
 
 // https://astro.build/config
 export default defineConfig({
@@ -20,6 +21,7 @@ export default defineConfig({
 	integrations: [icon()],
 	markdown: {
 		syntaxHighlight: "shiki",
+		remarkPlugins: [[remarkBehead, { minDepth: 2 }]],
 		rehypePlugins: [rehypeSlug, [rehypeAutolinkHeadings, { behavior: "wrap" }]],
 		shikiConfig: {
 			wrap: false,

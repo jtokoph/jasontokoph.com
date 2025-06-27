@@ -7,31 +7,33 @@ const { frontmatter, badge, type, id } = Astro.props;
 const githubPath = type === "blog" ? `src/blog/${id}.md` : `src/tidbits/${id}.md`;
 ---
 <BaseLayout pageTitle={frontmatter.title} activePage="blog">
-  <div class="flex flex-col gap-2 justify-center">
-    {badge ? <span class="badge badge-primary mb-2">{badge}</span> : null}
-    {frontmatter.draft ? <span class="badge badge-accent mb-2">Draft</span> : null}
-    <h1 class="text-4xl font-bold mb-2 text-secondary">
-      {frontmatter.title}
-    </h1>
-    <p class="text-sm text-gray-400">{frontmatter.pubDate.toLocaleDateString()}</p>
-    {frontmatter.image ? <img src={frontmatter.image.url} width="300" alt={frontmatter.image.alt} class="rounded-lg" /> : null}
-  </div>
-  <div class="markdown mt-8">
-    <slot />
-  </div>
-  <div class="my-8 divider" />
-  <div class="flex flex-row gap-2 justify-between items-center">
-    <div class="flex flex-row gap-2 flex-wrap">
-      {frontmatter.tags.map((tag: string) => (
-        <a href={`/tags/${tag}/`} class="badge badge-soft badge-accent badge-lg hover:badge-outline">
-          {tag}
+  <article>
+    <div class="flex flex-col gap-2 justify-center">
+      {badge ? <span class="badge badge-primary mb-2">{badge}</span> : null}
+      {frontmatter.draft ? <span class="badge badge-accent mb-2">Draft</span> : null}
+      <h1 class="text-4xl font-bold mb-2 text-secondary">
+        {frontmatter.title}
+      </h1>
+      <p class="text-sm text-gray-400">{frontmatter.pubDate.toLocaleDateString()}</p>
+      {frontmatter.image ? <img src={frontmatter.image.url} width="300" alt={frontmatter.image.alt} class="rounded-lg" /> : null}
+    </div>
+    <div class="markdown mt-8">
+      <slot />
+    </div>
+    <div class="my-8 divider" />
+    <div class="flex flex-row gap-2 justify-between items-center">
+      <div class="flex flex-row gap-2 flex-wrap">
+        {frontmatter.tags.map((tag: string) => (
+          <a href={`/tags/${tag}/`} class="badge badge-soft badge-accent badge-lg hover:badge-outline">
+            {tag}
+          </a>
+        ))}
+      </div>
+      <div class="flex flex-row gap-2">
+        <a href={`https://github.com/jtokoph/jasontokoph.com/blob/main/${githubPath}`}>
+          <Icon name="mdi:code" class="hover:text-secondary" size={24} />
         </a>
-      ))}
+      </div>
     </div>
-    <div class="flex flex-row gap-2">
-      <a href={`https://github.com/jtokoph/jasontokoph.com/blob/main/${githubPath}`}>
-        <Icon name="mdi:code" class="hover:text-secondary" size={24} />
-      </a>
-    </div>
-  </div>
+  </article>
 </BaseLayout>
