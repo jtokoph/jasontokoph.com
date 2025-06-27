@@ -1,17 +1,19 @@
 ---
-import BaseLayout from './BaseLayout.astro';
+import BaseLayout from "./BaseLayout.astro";
+
 const { frontmatter, badge } = Astro.props;
 ---
 <BaseLayout pageTitle={frontmatter.title} activePage="blog">
   <div class="flex flex-col gap-2 justify-center">
-    {badge ? <span class="badge badge-primary ">{badge}</span> : null}
+    {badge ? <span class="badge badge-primary mb-2">{badge}</span> : null}
+    {frontmatter.draft ? <span class="badge badge-accent mb-2">Draft</span> : null}
     <h1 class="text-4xl font-bold mb-2 text-secondary">
       {frontmatter.title}
     </h1>
     <p class="text-sm text-gray-400">{frontmatter.pubDate.toLocaleDateString()}</p>
-    <img src={frontmatter.image.url} width="300" alt={frontmatter.image.alt} class="rounded-lg" />
+    {frontmatter.image ? <img src={frontmatter.image.url} width="300" alt={frontmatter.image.alt} class="rounded-lg" /> : null}
   </div>
-  <div class="prose">
+  <div class="markdown mt-8">
     <slot />
   </div>
 </BaseLayout>

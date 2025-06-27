@@ -1,11 +1,50 @@
 ---
 title: ExUnit log_level macro
-pubDate: 2022-07-01
+pubDate: 2025-06-28
 description: 'Configure the log level per test'
-image:
-  url: 'https://docs.astro.build/assets/rose.webp'
-  alt: 'The Astro logo on a dark background with a pink glow.'
-tags: ["astro", "blogging", "learning in public"]
+tags: ["elixir"]
 ---
 
-TODO
+Sometimes when running tests you want to be able to test some of the log output. For good reason, `ExUnit` disables logging while running tests in order to reduce noise in the output.
+
+```elixir
+defmodule MyApp.Case do
+  # Add this macro to your base Case module
+  defmacro log_level(level, description \\ nil, do: block) do
+    description =
+      if is_binary(description),
+        do: description,
+        else: "with log level #{level}"
+
+    quote do
+      describe unquote(description) do
+        setup do
+          old_level = Logger.level()
+          Logger.configure(level: unquote(level))
+          on_exit(fn -> Logger.configure(level: old_level) end)
+        end
+
+        unquote(block)
+      end
+    end
+  end
+end
+```
+
+# Example usage
+
+```elixir
+defmodule MyApp.SomeTest do
+  log_level :info do
+    test "something with info logs" do
+      {result, log} =
+        with_log(fn ->
+          Logger.info("log msg")
+          2 + 2
+        end)
+      assert result == 4
+      assert log =~ "log msg"
+    end
+  end
+end
+```

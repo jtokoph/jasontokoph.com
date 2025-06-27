@@ -1,6 +1,0 @@
----
-const activePage = Astro.props.activePage || 'home';
----
-<a href="/" class:list={["text-secondary", activePage === "home" ? "text-primary" : ""]}>Home</a>
-<a href="/about/" class:list={["text-secondary", activePage === "about" ? "text-primary" : ""]}>About</a>
-<a href="/blog/" class:list={["text-secondary", activePage === "blog" ? "text-primary" : ""]}>Blog</a>

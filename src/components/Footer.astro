@@ -1,0 +1,21 @@
+---
+import { Icon } from 'astro-icon/components'
+---
+<footer class="flex justify-between items-center mt-24">
+  <p class="text-sm text-gray-500">by Jason Tokoph</p>
+  <div class="card relative flex flex-row items-center border-2 border-base-200 bg-base-200 rounded-full">
+    <div class="absolute w-[33%] h-full rounded-full border-1 border-base-200 bg-base-100 brightness-200 left-0 [[data-theme=light]_&]:left-[33%] [[data-theme=dark]_&]:left-[66%] transition-[left]" />
+
+    <button class="theme-toggle flex p-2 cursor-pointer group" data-theme-name="system">
+      <Icon name="mdi:monitor-shimmer" class="size-3 opacity-75 group-hover:opacity-100" />
+    </button>
+
+    <button class="theme-toggle flex p-2 cursor-pointer group" data-theme-name="light">
+      <Icon name="mdi:white-balance-sunny" class="size-3 opacity-75 group-hover:opacity-100" />
+    </button>
+
+    <button class="theme-toggle flex p-2 cursor-pointer group" data-theme-name="dark">
+      <Icon name="mdi:moon-and-stars" class="size-3 opacity-75 group-hover:opacity-100" />
+    </button>
+  </div>
+</footer>

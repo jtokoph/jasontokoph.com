@@ -1,0 +1,9 @@
+{
+  "files.associations": {
+    "*.css": "tailwindcss",
+    "*.astro": "astro"
+  },
+  "cSpell.words": [
+    "frontmatter"
+  ]
+}

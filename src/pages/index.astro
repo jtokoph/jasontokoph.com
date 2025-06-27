@@ -4,9 +4,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 const pageTitle = "Blog";
 const allPosts = await getCollection('blog');
-const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+const sortedPosts = allPosts.filter((post) => !post.data.draft).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 const allTidbits = await getCollection('tidbits');
-const sortedTidbits = allTidbits.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+const sortedTidbits = allTidbits.filter((tidbit) => !tidbit.data.draft).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 ---
 
 <BaseLayout pageTitle={pageTitle}>
