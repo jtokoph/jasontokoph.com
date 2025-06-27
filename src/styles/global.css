@@ -99,7 +99,7 @@ html[data-theme="dark"] .astro-code span {
 }
 
 pre.astro-code code {
-  @apply block;
+  @apply grid;
 }
 
 .astro-code .line {

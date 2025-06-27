@@ -4,7 +4,6 @@ import {
 	transformerNotationFocus,
 	transformerNotationHighlight,
 	transformerNotationWordHighlight,
-	transformerRemoveLineBreak,
 } from "@shikijs/transformers";
 import tailwindcss from "@tailwindcss/vite";
 // @ts-check
@@ -34,7 +33,6 @@ export default defineConfig({
 				transformerNotationDiff(),
 				transformerNotationFocus(),
 				transformerNotationWordHighlight(),
-				transformerRemoveLineBreak(),
 			],
 		},
 	},
