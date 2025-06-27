@@ -12,9 +12,7 @@ defmodule MyApp.Case do
   # Add this macro to your base Case module
   defmacro log_level(level, description \\ nil, do: block) do
     description =
-      if is_binary(description),
-        do: description,
-        else: "with log level #{level}"
+      if is_binary(description), do: description, else: "with log level #{level}"
 
     quote do
       describe unquote(description) do
@@ -33,9 +31,11 @@ end
 
 # Example usage
 
+Once you've added the macro to your application Case module, you can wrap a test like this:
+
 ```elixir
 defmodule MyApp.SomeTest do
-  log_level :info do
+  log_level :info do # [!code highlight]
     test "something with info logs" do
       {result, log} =
         with_log(fn ->
@@ -45,6 +45,6 @@ defmodule MyApp.SomeTest do
       assert result == 4
       assert log =~ "log msg"
     end
-  end
+  end # [!code highlight]
 end
 ```
