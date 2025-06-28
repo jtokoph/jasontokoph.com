@@ -32,7 +32,7 @@ const sortedTidbits = allTidbits.filter((tidbit) => !tidbit.data.draft).sort((a,
         })}
       </div>
     </div>
-    <div class="flex flex-col gap-8">
+    <div class="flex flex-col gap-8 sm:max-w-[40%]">
       <h2 class="group text-2xl text-accent flex flex-row gap-2 items-baseline relative">
         <a href="/tidbits.xml" class="absolute top-0 -left-8 group-hover:block hidden group-hover:text-[#ee802f] pr-2 py-1">
           <Icon name="mdi:rss" size={24} />

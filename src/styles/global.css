@@ -149,6 +149,10 @@ code .line::before {
 .markdown {
   @apply font-serif;
 
+  img {
+    @apply mx-auto;
+  }
+
   p, ul, ol {
     @apply text-lg/8 pb-8;
 
