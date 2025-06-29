@@ -1,0 +1,34 @@
+---
+import { getCollection } from 'astro:content';
+import { Icon } from "astro-icon/components";
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const pageTitle = "Tidbits";
+const allTidbits = await getCollection('tidbits');
+const sortedTidbits = allTidbits.filter((tidbit) => !tidbit.data.draft).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <div class="flex sm:flex-row gap-12 flex-col sm:gap-4">
+    <div class="flex-1 flex flex-col gap-8">
+      <h2 class="group text-2xl text-accent flex flex-row gap-2 items-baseline relative">
+        <a href="/tidbits.xml" class="absolute top-0 -left-8 group-hover:block hidden group-hover:text-[#ee802f] pr-2 py-1">
+          <Icon name="mdi:rss" size={24} />
+        </a>
+        Latest Tidbits
+        <span class="text-sm text-gray-400 italic">short posts</span>
+      </h2>
+      <div class="flex flex-col gap-12">
+        {sortedTidbits.map((tidbit) => {
+          return (
+            <a href={`/tidbits/${tidbit.id}/`} class="group flex flex-col gap-1 hover:border-l-2 hover:border-secondary hover:pl-2 hover:ml-[calc(var(--spacing)*-2-2px)]">
+              <h2 class="text-2xl text-primary group-hover:text-secondary">{tidbit.data.title}</h2>
+              <p class="text-sm text-gray-400">{tidbit.data.pubDate.toLocaleString('en-US', {month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC'})}</p>
+              <p class="text-base font-serif">{tidbit.data.description}</p>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+</BaseLayout>

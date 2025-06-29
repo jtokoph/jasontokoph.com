@@ -1,7 +1,7 @@
 ---
 title: "Introducing: Tidbits"
 author: Astro Learner
-description: "Sharing smaller bits of info"
+description: "More than a tweet, less than a blog post"
 pubDate: 2025-06-27
 tags: ["meta"]
 ---
@@ -13,3 +13,5 @@ So I’m trying something new. I’ve added a section to the site called "Tidbit
 The goal is to lower the bar for myself and actually hit publish more often. Hopefully some of these posts help you too.
 
 I've already published the first one here: [ExUnit log_level macro](/tidbits/exunit-log-level-macro/)
+
+You'll be able to see them all [here](/tidbits/) as I publish more.

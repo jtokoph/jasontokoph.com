@@ -1,6 +1,6 @@
 ---
 title: ExUnit log_level macro
-pubDate: 2025-06-28
+pubDate: 2025-06-27
 description: 'Configure the log level per test'
 tags: ["elixir"]
 ---

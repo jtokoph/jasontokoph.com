@@ -25,7 +25,7 @@ const sortedTidbits = allTidbits.filter((tidbit) => !tidbit.data.draft).sort((a,
           return (
             <a href={`/${post.id}/`} class="group flex flex-col gap-1 hover:border-l-2 hover:border-secondary hover:pl-2 hover:ml-[calc(var(--spacing)*-2-2px)]">
               <h2 class="text-2xl text-primary group-hover:text-secondary">{post.data.title}</h2>
-              <p class="text-sm text-gray-400">{post.data.pubDate.toLocaleDateString()}</p>
+              <p class="text-sm text-gray-400">{post.data.pubDate.toLocaleString('en-US', {month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC'})}</p>
               <p class="text-base font-serif">{post.data.description}</p>
             </a>
           );
