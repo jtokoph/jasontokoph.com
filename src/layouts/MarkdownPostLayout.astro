@@ -5,8 +5,9 @@ import BaseLayout from "./BaseLayout.astro";
 
 const { frontmatter, badge, type, id } = Astro.props;
 const githubPath = type === "blog" ? `src/blog/${id}.md` : `src/tidbits/${id}.md`;
+const ogImage = type === "blog" ? `og/blog/${id}.png` : `og/tidbits/${id}.png`;
 ---
-<BaseLayout pageTitle={frontmatter.title} activePage="blog">
+<BaseLayout pageTitle={frontmatter.title} activePage="blog" ogImage={new URL(ogImage, Astro.site)} title={frontmatter.title} description={frontmatter.description} ogType="article">
   <article>
     <div class="flex flex-col gap-2 justify-center">
       {badge ? <span class="badge badge-primary mb-2">{badge}</span> : null}

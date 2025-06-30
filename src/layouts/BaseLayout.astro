@@ -4,6 +4,8 @@ import Header from '../components/Header.astro';
 import '../styles/global.css';
 const pageTitle = Astro.props.pageTitle || "Home Page";
 const activePage = Astro.props.activePage || "home";
+
+const {title, description, ogImage, ogType} = Astro.props;
 ---
 <html lang="en">
   <head>
@@ -12,7 +14,15 @@ const activePage = Astro.props.activePage || "home";
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle} - Jason Tokoph</title>
-
+    <meta name="title" content={title || "Jason Tokoph"} />
+    <meta name="description" content={description || "Ramblings of a software engineer"} />
+    <meta property="og:image" content={ogImage || new URL("/og/default.png", Astro.site)} />
+    <meta property="og:title" content={title || "Jason Tokoph"} />
+    <meta property="og:description" content={description || "Ramblings of a software engineer"} />
+    <meta property="og:type" content={ogType || "website"} />
+    <meta property="og:url" content={Astro.url.toString()} />
+    <meta property="og:site_name" content="Jason Tokoph" />
+    <meta property="og:locale" content="en_US" />
     <script is:inline>
       (() => {
         const setTheme = (theme) => {
