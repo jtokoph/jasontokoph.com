@@ -190,11 +190,52 @@ code .line::before {
 .markdown h5,
 .markdown h6 {
   a {
-    @apply flex items-center border-b-0 relative text-base-content hover:text-base-content;
+    @apply border-b-0 relative text-base-content hover:text-base-content;
 
     &:hover::before {
       content: "#";
       @apply text-gray-400 inline-block absolute -left-8;
     }
   }
+}
+
+/* hide the h6 as they are just for internal linking */
+.markdown h6 {
+  @apply opacity-0 h-0 w-0 overflow-hidden;
+}
+
+.markdown blockquote {
+  @apply border-l-4 border-primary mb-8 py-2 px-4 bg-primary/10;
+
+  p {
+    @apply pb-0;
+  }
+}
+
+.markdown-alert {
+  @apply border-l-4 border-primary/20 mb-8 py-2 px-4;
+
+  p {
+    @apply pb-0;
+  }
+}
+
+.markdown-alert .markdown-alert-title {
+  @apply hidden;
+}
+
+.markdown-alert.markdown-alert-note {
+  @apply border-l-info-content bg-info text-info-content;
+}
+.markdown-alert.markdown-alert-tip {
+  @apply border-l-success-content bg-success text-success-content;
+}
+.markdown-alert.markdown-alert-important {
+  @apply border-l-accent-content bg-accent text-accent-content;
+}
+.markdown-alert.markdown-alert-warning {
+  @apply border-l-warning-content bg-warning text-warning-content;
+}
+.markdown-alert.markdown-alert-caution {
+  @apply border-l-error-content bg-error text-error-content;
 }
