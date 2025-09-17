@@ -1,6 +1,5 @@
 ---
 title: "Introducing: Tidbits"
-author: Astro Learner
 description: "More than a tweet, less than a blog post"
 pubDate: 2025-06-27
 tags: ["meta"]

@@ -1,6 +1,5 @@
 ---
 title: Introducing TOR HUD
-author: Astro Learner
 description: "Learning Electron to augment an old game"
 image:
   url: "https://docs.astro.build/assets/rays.webp"
