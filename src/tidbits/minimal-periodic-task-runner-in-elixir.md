@@ -5,6 +5,8 @@ description: 'Keeping it simple with GenServer :timeout'
 tags: ["elixir"]
 ---
 
+> **Update:** This post has been updated to include an additional [Shortcomings](#update-november-22-2025---shortcomings) section, but I've left the original post because I think the abuse of `:timeout` is still interesting.
+
 ## Background
 
 Recently, I needed a lightweight way to run a periodic job in the background to clean up some expired database records. Precise timing wasn't important, this was the only background work needed in the app, and it needed to self heal if anything went wrong.
@@ -82,3 +84,15 @@ Otherwise manually start:
 Another option is `:timer.send_interval/2`, but the `:timeout` mechanism keeps everything in a supervised `GenServer` and avoids overlapping executions.
 
 The `:timeout` pattern doesn’t provide the stronger guarantees that a real job scheduler would, so something like [Oban](https://github.com/oban-bg/oban) could be a better fit for tasks that aren't lightweight cleanup tasks.
+
+## Update November 22, 2025 - Shortcomings
+
+It has been pointed out that I missed two very important things:
+
+### 1 - No Extensibility
+
+Abusing the `:timeout` feature means any other message being received by the `GenServer` will prevent the next timeout from firing. This limits how much additional functionality you can add without having to redo this.
+
+### 2 - Process.send_after/4
+
+The idiomatic way of sending a periodic message to a process is using [Process.send_after/4](https://hexdocs.pm/elixir/Process.html#send_after/4). This allows the rest of the `GenServer` to be compatible with receiving other messages.
